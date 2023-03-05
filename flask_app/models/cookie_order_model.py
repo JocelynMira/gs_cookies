@@ -48,3 +48,17 @@ class Order:
         results = connectToMySQL(cls.db).query_db(query, {'id': id})
         return results
     
+    # VALIDATION
+    @staticmethod
+    def validate_order(order):
+        is_valid = True # assume this is true
+        if len(order['name']) < 2:
+            flash("Name must be at least 2 characters.")
+            is_valid = False
+        if len(order['cookie_type']) < 2:
+            flash("Cookie Type must be at least 2 characters.")
+            is_valid = False
+        if int(order['number_of_boxes']) <= 0:
+            flash("Number of Boxes must be more than 0.")
+            is_valid = False
+        return is_valid

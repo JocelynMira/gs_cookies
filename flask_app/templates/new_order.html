@@ -10,6 +10,13 @@
 <body>
     <div class="d-flex justify-content-center">
         <form action="/new_order" method='POST' class="col-4 bg-dark p-4 my-5 mx-5 text-light">
+            {% with messages = get_flashed_messages() %} <!--declare a variable called messages-->
+                {% if messages %}                        <!--check if there are any messages-->
+                    {% for message in messages %}        <!--loop through the messages-->
+                        <p>{{messages}}</p>              <!--display each message in <p> tag-->
+                    {% endfor %}
+                {% endif %}
+            {% endwith%}
             <h2 class="text-center text-primary mb-4">Log a New Order</h2>
             <div class="form-group">
                 <input type="text" class="form-control" name="name"/>

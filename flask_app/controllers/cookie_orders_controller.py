@@ -22,6 +22,9 @@ def place_order():
 # CREATE
 @app.route('/new_order', methods = ['POST'])
 def new_order():
+    # validate to make sure data is in correct format before we transfer data
+    if not Order.validate_order(request.form):
+        return redirect('/place_order')
     data = { 
         'name' : request.form['name'],
         'cookie_type' : request.form['cookie_type'],
@@ -39,6 +42,9 @@ def change_one_order(id):
 # UPDATE
 @app.route('/change_order/<int:id>', methods = ['POST'])
 def change(id):
+    if not Order.validate_order(request.form):
+        return redirect (f"/change/{id}")
+
     data = {
         'id': id,
         'name': request.form['name'],
